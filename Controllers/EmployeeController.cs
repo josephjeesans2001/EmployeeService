@@ -2,17 +2,23 @@
 using HospIntel.EmployeeService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 
-[ApiController]
-[Route("api/employee")]
-public class EmployeeController : ControllerBase
+namespace HospIntel.EmployeeService.Controllers
 {
-    private readonly IEmployeeService _service;
-
-    public EmployeeController(IEmployeeService service)
+    [ApiController]
+    [Route("api/[controller]")]
+    [Produces("application/json")]
+    public class EmployeeController : ControllerBase
     {
-        _service = service;
-    }
+        private readonly IEmployeeService _service;
+        private readonly ILogger<EmployeeController> _logger;
+
+        public EmployeeController(IEmployeeService service, ILogger<EmployeeController> logger)
+        {
+            _service = service;
+            _logger = logger;
+        }
 
     // API_102_Employee_Registration
     [HttpPost("register")]
@@ -82,4 +88,6 @@ public class EmployeeController : ControllerBase
         await _service.DeleteEmployeeAsync(empId, cancellationToken).ConfigureAwait(false);
         return Ok("Employee Deleted");
     }
+}
+
 }
