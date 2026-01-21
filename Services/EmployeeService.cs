@@ -92,7 +92,7 @@ namespace HospIntel.EmployeeService.Services
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 var p = cmd.CreateParameter();
-                p.ParameterName = "@EmpId";
+                p.ParameterName = "@EMP_ID";
                 p.Value = empId;
                 cmd.Parameters.Add(p);
 
